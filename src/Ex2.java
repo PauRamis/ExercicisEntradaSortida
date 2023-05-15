@@ -8,21 +8,27 @@ public class Ex2 {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nom del directori (Exemple: /home/superior/Imatges)");
         File path = new File(scanner.nextLine());
-        System.out.println("Nom de la extansió (Exemple: .png)");
+        System.out.println("Nom de la extansió (Exemple: png)");
         String wantedExtension = scanner.nextLine();
 
         String[] continguts = path.list();
         assert continguts != null;
-        for (String contingut : continguts) {
-            String extension = "";
+        if (path.exists() && path.isDirectory())
+            for (String contingut : continguts) {
+                String extension = "";
 
-            int index = contingut.lastIndexOf('.');
-            if (index > 0) {
-                extension = contingut.substring(index + 1);
+                int index = contingut.lastIndexOf('.');
+                if (index > 0) {
+                    extension = contingut.substring(index + 1);
+                }
+                if (extension.equals(wantedExtension))
+                    System.out.println(contingut);
             }
-            if (extension.equals(wantedExtension))
-                System.out.println(contingut);
-        }
-
+        else System.out.println("No existeix un directori amb aquest nom");
     }
+    /*if (path.exists() && path.isDirectory())
+            for (String contingut : continguts) {
+                if (contingut.toLowerCase().endsWith("."))
+                    System.out.println(contingut);
+            }*/
 }
